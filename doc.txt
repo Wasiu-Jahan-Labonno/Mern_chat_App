@@ -1,0 +1,18 @@
+https://github.com/piyush-eon/mern-chat-app
+https://www.youtube.com/watch?v=3vRcB0P84t4&list=PLKhlp2qtUcSZsGkxAdgnPcHioRr-4guZf&index=1&ab_channel=RoadsideCoder
+
+vs Setting 
+react ES6 
+
+
+npm init
+npm i express
+npm i dotenv ( for create env file)
+npm i nodemon
+
+create react reprensenter 
+npx create-react-app frontend
+chakra UI 
+npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion (this is a react library)
+npm install react-router-dom@5
+npm install axios (this need to collabreation with BACNKEND and frontend)
