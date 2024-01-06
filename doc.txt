@@ -16,3 +16,4 @@ chakra UI
 npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion (this is a react library)
 npm install react-router-dom@5
 npm install axios (this need to collabreation with BACNKEND and frontend)
+npm i mongoose (inside the root of the folder)
