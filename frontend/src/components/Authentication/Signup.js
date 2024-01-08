@@ -17,6 +17,7 @@ const Signup = () => {
 
   const handleClick = () => SetShow(!show);
   const postDetails = (pics) => {};
+  const submitHandle = () => {};
 
   return (
     <VStack spacing="5px" color="black">
@@ -80,9 +81,9 @@ const Signup = () => {
         colorScheme="blue"
         width="100%"
         style={{ marginTop: 15 }}
-        /* onClick={submitHandle} */
+        onClick={submitHandle}
       >
-        {show ? "Hide" : "Show"}
+        Sign in
       </Button>
     </VStack>
   );
