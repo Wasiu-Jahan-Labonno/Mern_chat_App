@@ -17,6 +17,7 @@ npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion (this is a r
 npm install react-router-dom@5
 npm install axios (this need to collabreation with BACNKEND and frontend)
 npm i mongoose (inside the root of the folder)
+<<<<<<< HEAD
 npm i express-async-handler
 
 name : wasiujahan764
@@ -27,3 +28,5 @@ pass : y7a0D1uBNzktaMIR
 
 npm i jsonwebtoken
 npm install bcryptjs
+=======
+>>>>>>> f44c89c11bbcd8619105ec231d0de1def52ade80
