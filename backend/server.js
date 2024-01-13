@@ -4,6 +4,7 @@ const { chats } = require("./data/data");
 const { connect } = require("mongoose");
 const connectDB = require("./config/db");
 const colors = require("colors");
+const userRouters = require("./routes/userRoutes");
 
 dotenv.config();
 
@@ -11,12 +12,17 @@ connectDB();
 
 const app = express();
 
+/* app.use(express.json()); //to accept json data */
+
 app.get("/", (req, res) => {
   res.send("API is runing ");
 });
 
 app.get("/api/chat", (req, res) => {
   res.send(chats);
+});
+app.use("/api/user", (userRouters) => {
+  res.send("Api Running successfully");
 });
 
 app.get("/api/chat/:id", (req, res) => {
