@@ -16,7 +16,7 @@ const registerUser = asyncHandler(async (res, req) => {
     res.status(400);
     throw new Error("User already exits");
   }
-
+  /* test for git push */
   const user = await User.create({
     name,
     email,
