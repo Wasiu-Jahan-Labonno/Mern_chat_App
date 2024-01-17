@@ -30,3 +30,7 @@ npm i jsonwebtoken
 npm install bcryptjs
 =======
 >>>>>>> f44c89c11bbcd8619105ec231d0de1def52ade80
+
+
+/////////////
+https://cloudinary.com/users/login (for better uploding profile pic)
