@@ -1,21 +1,22 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
-const { model } = require("mongoose");
 const generateToken = require("../config/generateToken");
 
-const registerUser = asyncHandler(async (res, req) => {
+const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, pic } = req.body;
 
   if (!name || !email || !password) {
     res.status(400);
-    throw new Error("PLease enter All the fields");
+    throw new Error("Please enter all the fields");
   }
+
   const userExists = await User.findOne({ email });
 
   if (userExists) {
     res.status(400);
-    throw new Error("User already exits");
+    throw new Error("User already exists");
   }
+
   /* test for git push */
   const user = await User.create({
     name,
@@ -23,6 +24,7 @@ const registerUser = asyncHandler(async (res, req) => {
     password,
     pic,
   });
+
   if (user) {
     res.status(201).json({
       _id: user._id,
@@ -36,5 +38,33 @@ const registerUser = asyncHandler(async (res, req) => {
     throw new Error("Failed to create the user");
   }
 });
+const authUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
 
-module.exports = { registerUser };
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      pic: user.pic,
+      token: generateToken(user._id),
+    });
+  }
+});
+//api/user
+const allUser = asyncHandler(async (req, res) => {
+  console.log(req.query);
+  const keyword = req.query.search
+    ? {
+        $or: [
+          { name: { $regex: req.query.search, $options: "i" } },
+          { email: { $regex: req.query.search, $options: "i" } },
+        ],
+      }
+    : {};
+  const users = await User.find(keyword);
+  res.send(users);
+});
+
+module.exports = { registerUser, authUser, allUser };
