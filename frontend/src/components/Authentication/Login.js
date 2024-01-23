@@ -12,39 +12,40 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const toast = useToast();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const history = useHistory();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const history = useHistory();
-  /*   const { setUser } = ChatState(); */
-
   const submitHandler = async () => {
-    setLoading(true);
-    if (!email || !password) {
-      toast({
-        title: "Please Fill all the Feilds",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-      setLoading(false);
-      return;
-    }
-
     try {
+      setLoading(true);
+
+      if (!email || !password) {
+        toast({
+          title: "Please enter both email and password",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setLoading(false);
+        return;
+      }
+
       const config = {
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
       };
 
-      const { data } = await axios.post(
-        "/api/user/login",
-        { email, password },
-        config
-      );
+      const data = {
+        email: email,
+        password: password,
+      };
+
+      const response = await axios.post("/api/user/login", data, config);
 
       toast({
         title: "Login Successful",
@@ -53,26 +54,50 @@ const Login = () => {
         isClosable: true,
         position: "bottom",
       });
-      /*   setUser(data); */
-      localStorage.setItem("userInfo", JSON.stringify(data));
+
+      // Assuming your server sends a token upon successful login
+      const { token } = response.data;
+
+      // Save the token in local storage
+      localStorage.setItem("userInfo", JSON.stringify({ token, email }));
+
       setLoading(false);
       history.push("/chats");
     } catch (error) {
+      // Log specific parts of the error object for debugging
+      console.error("Login error:", error);
+
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        console.error("Status Code:", error.response.status);
+        console.error("Response Data:", error.response.data);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("No Response Received:", error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error("Request Error:", error.message);
+      }
+
+      const errorMessage =
+        error.response?.data.message || "An error occurred during login.";
+
       toast({
-        title: "Error Occured!",
-        description: error.response.data.message,
+        title: "Login Failed",
+        description: errorMessage,
         status: "error",
         duration: 5000,
         isClosable: true,
         position: "bottom",
       });
+
       setLoading(false);
     }
   };
 
   return (
     <VStack spacing="10px">
-      <FormControl id="email" isRequired>
+      <FormControl id="login-email" isRequired>
         <FormLabel>Email Address</FormLabel>
         <Input
           value={email}
@@ -81,7 +106,7 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
       </FormControl>
-      <FormControl id="password" isRequired>
+      <FormControl id="login-password" isRequired>
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
@@ -111,8 +136,8 @@ const Login = () => {
         colorScheme="red"
         width="100%"
         onClick={() => {
-          setEmail("guest@example.com");
-          setPassword("123456");
+          setEmail("jahan@jahan.com");
+          setPassword("123456789");
         }}
       >
         Get Guest User Credentials

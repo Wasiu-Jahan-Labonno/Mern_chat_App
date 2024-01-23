@@ -52,5 +52,19 @@ const authUser = asyncHandler(async (req, res) => {
     });
   }
 });
+//api/user
+const allUser = asyncHandler(async (req, res) => {
+  console.log(req.query);
+  const keyword = req.query.search
+    ? {
+        $or: [
+          { name: { $regex: req.query.search, $options: "i" } },
+          { email: { $regex: req.query.search, $options: "i" } },
+        ],
+      }
+    : {};
+  const users = await User.find(keyword);
+  res.send(users);
+});
 
-module.exports = { registerUser };
+module.exports = { registerUser, authUser, allUser };

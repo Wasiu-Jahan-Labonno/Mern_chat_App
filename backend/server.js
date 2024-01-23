@@ -1,10 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const dotenv = require("dotenv");
 const { chats } = require("./data/data");
 const { connect } = require("mongoose");
 const connectDB = require("./config/db");
 const colors = require("colors");
 const userRouters = require("./routes/userRoutes");
+const chatRouters = require("./routes/chatRouters");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 dotenv.config();
@@ -12,7 +14,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
-
+app.use(cors());
 app.use(express.json()); //to accept json data
 
 app.get("/", (req, res) => {
@@ -25,6 +27,7 @@ app.get("/api/chat", (req, res) => {
 
 // Use app.use for middleware, not for mounting routes
 app.use("/api/user", userRouters);
+app.use("/api/chat", chatRouters);
 
 app.use(notFound);
 app.use(errorHandler);
