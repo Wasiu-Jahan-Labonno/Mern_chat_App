@@ -9,12 +9,13 @@ npm init
 npm i express
 npm i dotenv ( for create env file)
 npm i nodemon
-
+//////////////////////////
 create react reprensenter 
 npx create-react-app frontend
 chakra UI 
+////////////////////
 npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion (this is a react library)
-npm install react-router-dom@5
+`
 npm install axios (this need to collabreation with BACNKEND and frontend)
 npm i mongoose (inside the root of the folder)
 <<<<<<< HEAD
@@ -34,3 +35,6 @@ npm install bcryptjs
 
 /////////////
 https://cloudinary.com/users/login (for better uploding profile pic)
+
+npm install @chakra-ui/icons
+npm install react-notification-badge
