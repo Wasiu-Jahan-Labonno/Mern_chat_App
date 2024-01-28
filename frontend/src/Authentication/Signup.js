@@ -13,11 +13,11 @@ const Signup = () => {
   const toast = useToast();
   const history = useHistory();
 
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [confirmpassword, setConfirmpassword] = useState();
-  const [password, setPassword] = useState();
-  const [pic, setPic] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [confirmpassword, setConfirmpassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [pic, setPic] = useState("");
   const [picLoading, setPicLoading] = useState(false);
 
   const submitHandler = async () => {
@@ -134,6 +134,7 @@ const Signup = () => {
       <FormControl id="first-name" isRequired>
         <FormLabel>Name</FormLabel>
         <Input
+          value={name}
           placeholder="Enter Your Name"
           onChange={(e) => setName(e.target.value)}
         />
@@ -142,6 +143,7 @@ const Signup = () => {
         <FormLabel>Email Address</FormLabel>
         <Input
           type="email"
+          value={email}
           placeholder="Enter Your Email Address"
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -151,6 +153,7 @@ const Signup = () => {
         <InputGroup size="md">
           <Input
             type={show ? "text" : "password"}
+            value={password}
             placeholder="Enter Password"
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -161,12 +164,13 @@ const Signup = () => {
           </InputRightElement>
         </InputGroup>
       </FormControl>
-      <FormControl id="password" isRequired>
+      <FormControl id="confirm-password" isRequired>
         <FormLabel>Confirm Password</FormLabel>
         <InputGroup size="md">
           <Input
             type={show ? "text" : "password"}
             placeholder="Confirm password"
+            value={confirmpassword}
             onChange={(e) => setConfirmpassword(e.target.value)}
           />
           <InputRightElement width="4.5rem">
