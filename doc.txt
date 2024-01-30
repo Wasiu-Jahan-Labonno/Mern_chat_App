@@ -22,6 +22,9 @@ npm i mongoose (inside the root of the folder)
 <<<<<<< HEAD
 npm i express-async-handler
 
+npm update socket.io-client
+
+
 name : wasiujahan764
 mongodb : jCf26QMTfMezYsMW
 

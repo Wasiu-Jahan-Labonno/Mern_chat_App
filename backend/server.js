@@ -7,6 +7,7 @@ const connectDB = require("./config/db");
 const colors = require("colors");
 const userRouters = require("./routes/userRoutes");
 const chatRouters = require("./routes/chatRouters");
+const messageRouters = require("./routes/messageRouters");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 dotenv.config();
@@ -28,6 +29,7 @@ app.get("/api/chat", (req, res) => {
 // Use app.use for middleware, not for mounting routes
 app.use("/api/user", userRouters);
 app.use("/api/chat", chatRouters);
+app.use("/api/message", messageRouters);
 
 app.use(notFound);
 app.use(errorHandler);

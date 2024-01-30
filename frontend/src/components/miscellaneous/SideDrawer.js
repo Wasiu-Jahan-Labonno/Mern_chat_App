@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/button";
-/* import { useDisclosure } from "@chakra-ui/hooks"; */
+import { useDisclosure } from "@chakra-ui/hooks";
 import { Input } from "@chakra-ui/input";
 import { Box, Text } from "@chakra-ui/layout";
 import {
@@ -48,7 +48,7 @@ function SideDrawer() {
   } = ChatState();
 
   const toast = useToast();
-  /*  const { isOpen, onOpen, onClose } = useDisclosure(); */
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
 
   const logoutHandler = () => {
