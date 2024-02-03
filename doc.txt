@@ -45,3 +45,6 @@ npm install @chakra-ui/icons
 npm install react-scrollable-feed --force
 npm install react-notification-badge@1.5.1 --force
 npm install react-lottie --force 
+
+npm install socket.io
+npm i socket.io -client //( frontend)

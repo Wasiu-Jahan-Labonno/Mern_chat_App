@@ -19,9 +19,12 @@ const sendMessage = asyncHandler(async (req, res) => {
 
   try {
     var message = await Message.create(newMessage);
-    message = await message.populate("chat");
-    message = await message.populate("sender", "name pic");
-    //console.log(message);
+    const cid = message.chat;
+    message = await message.populate([
+      { path: "sender", select: "name pic" },
+      "chat",
+    ]);
+    //message = await message.populate("chat");
     message = await User.populate(message, {
       path: "chats.users",
       select: "name pic email",
@@ -31,6 +34,7 @@ const sendMessage = asyncHandler(async (req, res) => {
       latestMessage: message,
     });
 
+    message.chat = cid;
     res.json(message);
   } catch (error) {
     res.status(400);

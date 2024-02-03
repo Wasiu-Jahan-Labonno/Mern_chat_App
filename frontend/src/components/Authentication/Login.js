@@ -12,8 +12,8 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const toast = useToast();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const history = useHistory();
@@ -111,11 +111,22 @@ const Login = () => {
         colorScheme="red"
         width="100%"
         onClick={() => {
-          setEmail("");
-          setPassword("123456");
+          setEmail("jahan@jahan.com");
+          setPassword("123456789");
         }}
       >
         Get Guest User Credentials
+      </Button>
+      <Button
+        variant="solid"
+        colorScheme="red"
+        width="100%"
+        onClick={() => {
+          setEmail("prime@prime.com");
+          setPassword("123456789");
+        }}
+      >
+        Get 2nd Guest User Credentials
       </Button>
     </VStack>
   );
