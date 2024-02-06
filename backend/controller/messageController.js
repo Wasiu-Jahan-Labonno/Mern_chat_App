@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Message = require("../models/messageModel");
 const User = require("../models/userModel");
-const Chat = require("../models/chatModels");
+const Chat = require("../models/chatModel");
 
 const sendMessage = asyncHandler(async (req, res) => {
   const { content, chatId } = req.body;
@@ -14,17 +14,15 @@ const sendMessage = asyncHandler(async (req, res) => {
   var newMessage = {
     sender: req.user._id,
     content: content,
-    chat: chatId,
+    chats: chatId,
   };
 
   try {
     var message = await Message.create(newMessage);
-    const cid = message.chat;
     message = await message.populate([
       { path: "sender", select: "name pic" },
-      "chat",
+      { path: "chats" },
     ]);
-    //message = await message.populate("chat");
     message = await User.populate(message, {
       path: "chats.users",
       select: "name pic email",
@@ -34,7 +32,6 @@ const sendMessage = asyncHandler(async (req, res) => {
       latestMessage: message,
     });
 
-    message.chat = cid;
     res.json(message);
   } catch (error) {
     res.status(400);
@@ -44,9 +41,9 @@ const sendMessage = asyncHandler(async (req, res) => {
 
 const allMessage = asyncHandler(async (req, res) => {
   try {
-    const messages = await Message.find({ chat: req.params.chatId })
+    const messages = await Message.find({ chats: req.params.chatId })
       .populate("sender", "name pic email")
-      .populate("chat");
+      .populate("chats");
 
     res.json(messages);
   } catch (error) {

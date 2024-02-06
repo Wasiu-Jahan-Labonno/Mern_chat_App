@@ -31,6 +31,9 @@ mongodb : jCf26QMTfMezYsMW
 name : Mern_Chat_App
 pass : y7a0D1uBNzktaMIR
 
+name : Mern_Chat
+pass : a29lE083r78q85XH
+
 npm i jsonwebtoken
 npm install bcryptjs
 =======

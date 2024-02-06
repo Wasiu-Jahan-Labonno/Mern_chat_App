@@ -2,15 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { chats } = require("./data/data");
-const { connect } = require("mongoose");
 const connectDB = require("./config/db");
-const colors = require("colors");
 const userRouters = require("./routes/userRoutes");
 const chatRouters = require("./routes/chatRouters");
 const messageRouters = require("./routes/messageRouters");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
-const path = require("path");
-const { receiveMessageOnPort } = require("worker_threads");
 
 dotenv.config();
 
@@ -24,9 +20,9 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-app.get("/api/chat", (req, res) => {
+/* app.get("/api/chat", (req, res) => {
   res.send(chats);
-});
+}); */
 
 // Use app.use for middleware, not for mounting routes
 app.use("/api/user", userRouters);
@@ -72,15 +68,13 @@ io.on("connection", (socket) => {
   socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
 
   socket.on("new message", (newMessageRecieved) => {
-    //console.log("New message received:", newMessageRecieved);
+    var chats = newMessageRecieved.chats;
 
-    var chat = newMessageRecieved.chat;
-
-    if (!chat.users) {
+    if (!chats.users) {
       return console.log("Chat or chat.users not defined");
     }
 
-    chat.users.forEach((user) => {
+    chats.users.forEach((user) => {
       if (user._id == newMessageRecieved.sender._id) return;
 
       socket.in(user._id).emit("message received", newMessageRecieved);

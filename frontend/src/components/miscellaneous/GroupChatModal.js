@@ -13,7 +13,7 @@ import {
   useToast,
   Box,
 } from "@chakra-ui/react";
-import axios from "axios";
+import { backend } from "../../plugins/axiosPlugin";
 import { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../userAvatar/UserBadgeItem";
@@ -58,7 +58,7 @@ const GroupChatModal = ({ children }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await backend.get(`user?search=${search}`, config);
       console.log(data);
       setLoading(false);
       setSearchResult(data);
@@ -96,8 +96,8 @@ const GroupChatModal = ({ children }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.post(
-        `/api/chat/group`,
+      const { data } = await backend.post(
+        `chat/group`,
         {
           name: groupChatName,
           users: JSON.stringify(selectedUsers.map((u) => u._id)),

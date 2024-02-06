@@ -16,7 +16,7 @@ import {
   IconButton,
   Spinner,
 } from "@chakra-ui/react";
-import axios from "axios";
+import { backend } from "../../plugins/axiosPlugin";
 import { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../userAvatar/UserBadgeItem";
@@ -46,7 +46,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await backend.get(`user?search=${search}`, config);
       console.log(data);
       setLoading(false);
       setSearchResult(data);
@@ -73,8 +73,8 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.put(
-        `/api/chat/rename`,
+      const { data } = await backend.put(
+        `chat/rename`,
         {
           chatId: selectedChat._id,
           chatName: groupChatName,
@@ -131,8 +131,8 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.put(
-        `/api/chat/groupadd`,
+      const { data } = await backend.put(
+        `chat/groupadd`,
         {
           chatId: selectedChat._id,
           userId: user1._id,
@@ -176,8 +176,8 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.put(
-        `/api/chat/groupremove`,
+      const { data } = await backend.put(
+        `chat/groupremove`,
         {
           chatId: selectedChat._id,
           userId: user1._id,
